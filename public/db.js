@@ -31,20 +31,20 @@ const checkDatabase = () => {
   const getAll = store.getAll()
 
   getAll.onsuccess = () => {
-    if (getAll.result.length > 0) {
-      fetch('/api/transaction/bulk', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(getAll.result)
-      })
-        .then(() => {
-          const transaction = db.transaction(['pending'], 'readwrite')
-          const store = transaction.objectStore('pending')
-          store.clear()
-        })
-    }
+      if (getAll.result.length > 0) {
+          fetch('/api/transaction/bulk', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(getAll.result)
+          })
+              .then(() => {
+                  const transaction = db.transaction(['pending'], 'readwrite')
+                  const store = transaction.objectStore('pending')
+                  store.clear()
+              })
+      }
   }
 }
 
